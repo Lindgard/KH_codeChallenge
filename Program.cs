@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace codeChallenge;
+﻿namespace codeChallenge;
 
 class Program
 {
@@ -114,14 +112,20 @@ class Program
                 if (operation == '+')
                 {
                     result = calc.AddDouble(num1Double, num2Double);
+
+                    result = Math.Round(result, 2, MidpointRounding.AwayFromZero); //* Adding a limit to the decimals of the double that result should be.
                 }
                 else if (operation == '-')
                 {
                     result = calc.SubtractDouble(num1Double, num2Double);
+
+                    result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
                 }
                 else if (operation == '*')
                 {
                     result = calc.MultiplyDouble(num1Double, num2Double);
+
+                    result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
                 }
                 else if (operation == '/')
                 {
@@ -134,6 +138,8 @@ class Program
                         continue;
                     }
                     result = calc.DivideDouble(num1Double, num2Double);
+
+                    result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
                 }
 
                 //* Displaying the result
