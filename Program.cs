@@ -7,6 +7,10 @@ class Program
         //* Creating an instance of the calculator class
         Calculator calc = new Calculator();
 
+        //* Array of recent calculation history
+        string[] recentHistory = new string[5];
+        int historyIndex = 0;
+
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Welcome to the calculator cli!");
         Console.ResetColor();
