@@ -25,13 +25,13 @@ class Program
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Use decimal numbers? (y/n): ");
             Console.ResetColor();
-            char? choice = Console.ReadKey().KeyChar;
-            Console.WriteLine(); //* Add newline after reading char
+            string? choiceInput = Console.ReadLine();
+            char? choice = string.IsNullOrEmpty(choiceInput) ? null : choiceInput[0]; //* Add newline after reading char
             bool useDecimals = choice == 'y' || choice == 'Y';
 
             //* Get first number
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Enter first number: ");
+            Console.Write("Enter first number \n(press Enter when done): ");
             Console.ResetColor();
             string? input1 = Console.ReadLine();
 
@@ -61,13 +61,11 @@ class Program
 
             //* Get operation (char)
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Enter operation (+, -, *, /): ");
+            Console.Write("Enter operation (+, -, *, /) \n(press Enter when done): ");
             Console.ResetColor();
-            char operation = Console.ReadKey().KeyChar;
-            Console.WriteLine(); //* Add newline after reading char
-
-            //* Validate char operation (char can't be null, so no IsNullOrEmpty needed)
-            if (operation != '+' && operation != '-' && operation != '*' && operation != '/')
+            string? operationInput = Console.ReadLine();
+            if (string.IsNullOrEmpty(operationInput) || 
+                (operationInput[0] != '+' && operationInput[0] != '-' && operationInput[0] != '*' && operationInput[0] != '/'))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("❌ Invalid operation! Please use +, -, *, or /");
@@ -75,9 +73,11 @@ class Program
                 continue;
             }
 
+            char operation = operationInput[0];
+
             //* Get second number
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("Enter second number: ");
+            Console.Write("Enter second number \n(press Enter when done): ");
             Console.ResetColor();
             string? input2 = Console.ReadLine();
 
