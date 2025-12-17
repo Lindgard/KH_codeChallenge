@@ -1,4 +1,5 @@
-﻿namespace codeChallenge;
+﻿using System.Collections.Generic;
+namespace codeChallenge;
 
 class Program
 {
@@ -10,6 +11,15 @@ class Program
         //* Array of recent calculation history
         string[] recentHistory = new string[5];
         int historyIndex = 0;
+
+        
+         //* List for all results
+        List<double> allResults = new List<double>();
+        List<string> allCalculations = new List<string>();
+
+        //* Storing in lists
+        allResults.Add(result);
+        allCalculations.Add(calculationEntry);
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Welcome to the calculator cli!");
@@ -58,7 +68,7 @@ class Program
         Console.Write("Enter operation (+, -, *, /): ");
         Console.ResetColor();
         char operation = Console.ReadKey().KeyChar;
-        Console.WriteLine(); // Add newline after reading char
+        Console.WriteLine(); //* Add newline after reading char
 
         //* Validate char operation (char can't be null, so no IsNullOrEmpty needed)
         if (operation != '+' && operation != '-' && operation != '*' && operation != '/')
@@ -132,6 +142,11 @@ class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"✅ Result: {result}");
             Console.ResetColor();
+
+            //* Storing in array
+            string calculationEntry = $"{num1Double} {operation} {num2Double} = {result}";
+            recentHistory[historyIndex % 5] = calculationEntry;
+            historyIndex++;
         }
         else
         {
@@ -165,6 +180,23 @@ class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"✅ Result: {result}");
             Console.ResetColor();
+
+            //* Storing in array
+            string calculationEntry = $"{num1Int} {operation} {num2Int} = {result}";
+            recentHistory[historyIndex % 5] = calculationEntry;
+            historyIndex++;
+        }
+
+        //* Displaying the collections
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("\n--- Recent History (Array - last 5) ---");
+        Console.ResetColor();
+        foreach (string calc in recentHistory)
+        {
+            if (calc != null) //* arrays can have null elements
+            {
+                Console.WriteLine(calc);
+            }
         }
     }
 }
