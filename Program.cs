@@ -17,10 +17,6 @@ class Program
         List<double> allResults = new List<double>();
         List<string> allCalculations = new List<string>();
 
-        //* Storing in lists
-        allResults.Add(result);
-        allCalculations.Add(calculationEntry);
-
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("Welcome to the calculator cli!");
         Console.ResetColor();
@@ -147,6 +143,10 @@ class Program
             string calculationEntry = $"{num1Double} {operation} {num2Double} = {result}";
             recentHistory[historyIndex % 5] = calculationEntry;
             historyIndex++;
+
+             //* Storing in lists
+            allResults.Add(result);
+            allCalculations.Add(calculationEntry);
         }
         else
         {
@@ -185,18 +185,38 @@ class Program
             string calculationEntry = $"{num1Int} {operation} {num2Int} = {result}";
             recentHistory[historyIndex % 5] = calculationEntry;
             historyIndex++;
+
+             //* Storing in lists
+            allResults.Add(result);
+            allCalculations.Add(calculationEntry);
         }
 
         //* Displaying the collections
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine("\n--- Recent History (Array - last 5) ---");
         Console.ResetColor();
-        foreach (string calc in recentHistory)
+        foreach (string historyItem in recentHistory)
         {
-            if (calc != null) //* arrays can have null elements
+            if (historyItem != null) //* arrays can have null elements
             {
-                Console.WriteLine(calc);
+                Console.WriteLine(historyItem);
             }
+        }
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"\n--- All Results (List - Total: {allResults.Count}) ---");
+        Console.ResetColor();
+        foreach (double res in allResults)
+        {
+            Console.WriteLine($"Result: {res}");
+        }
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine("\n--- All Calculations (List) ---");
+        Console.ResetColor();
+        foreach (string calculation in allCalculations)
+        {
+            Console.WriteLine(calculation);
         }
     }
 }
