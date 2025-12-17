@@ -1,5 +1,5 @@
 {
-  description = "Dev shell for codeChallenge with .NET 10 SDK";
+  description = "Dev shell for codeChallenge with .NET 9 SDK";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -16,8 +16,8 @@
           };
         };
 
-        # .NET 10 SDK from nixpkgs
-        dotnetSdk = pkgs.dotnet-sdk_10;
+        # .NET 9 SDK from nixpkgs
+        dotnetSdk = pkgs.dotnet-sdk_9;
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = [
