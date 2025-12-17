@@ -11,25 +11,53 @@ class Program
         Console.WriteLine("Welcome to the calculator cli!");
         Console.ResetColor();
 
-        //* Adding interactivity
-        Console.ForegroundColor =  ConsoleColor.Yellow;
+        //* Ask if user wants decimal calculations (bool)
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("Use decimal numbers? (y/n): ");
+        Console.ResetColor();
+        char? choice = Console.ReadKey().KeyChar;
+        Console.WriteLine(); //* Add newline after reading char
+        bool useDecimals = choice == 'y' || choice == 'Y';
+
+        //* Get first number
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write("Enter first number: ");
         Console.ResetColor();
         string? input1 = Console.ReadLine();
-        if (string.IsNullOrEmpty(input1) || !int.TryParse(input1, out int num1))
+
+        //* Parse first number based on useDecimals flag
+        double num1Double = 0;
+        int num1Int = 0;
+        if (useDecimals)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("❌ No input received!");
-            Console.ResetColor();
-            return;
+            if (string.IsNullOrEmpty(input1) || !double.TryParse(input1, out num1Double))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("❌ Invalid decimal number!");
+                Console.ResetColor();
+                return;
+            }
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(input1) || !int.TryParse(input1, out num1Int))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("❌ Invalid number!");
+                Console.ResetColor();
+                return;
+            }
         }
 
-        //* Get operation
+        //* Get operation (char)
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write("Enter operation (+, -, *, /): ");
         Console.ResetColor();
-        string? operation = Console.ReadLine();
-        if (string.IsNullOrEmpty(operation) || (operation != "+" && operation != "-" && operation != "*" && operation != "/"))
+        char operation = Console.ReadKey().KeyChar;
+        Console.WriteLine(); // Add newline after reading char
+
+        //* Validate char operation (char can't be null, so no IsNullOrEmpty needed)
+        if (operation != '+' && operation != '-' && operation != '*' && operation != '/')
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("❌ Invalid operation! Please use +, -, *, or /");
@@ -37,49 +65,102 @@ class Program
             return;
         }
 
-        //* Get Second number from input
+        //* Get second number
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write("Enter second number: ");
         Console.ResetColor();
         string? input2 = Console.ReadLine();
-        if (string.IsNullOrEmpty(input2) || !int.TryParse(input2, out int num2))
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("❌ Invalid number! Please enter a valid integer.");
-            Console.ResetColor();
-            return;
-        }
-        
 
-        int result = 0;
-        if (operation == "+")
+        //* Parse second number based on useDecimals flag
+        double num2Double = 0;
+        int num2Int = 0;
+        if (useDecimals)
         {
-            result = calc.Add(num1, num2);
-        } 
-        else if (operation == "-")
-        {
-            result = calc.Subtract(num1, num2);
-        } 
-        else if (operation == "*")
-        {
-            result = calc.Multiply(num1, num2);
-        }
-        else if (operation == "/")
-        {
-            //* Handling of division by zero
-            if (num2 == 0)
+            if (string.IsNullOrEmpty(input2) || !double.TryParse(input2, out num2Double))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("❌ Error: cannot divide by zero!");
+                Console.WriteLine("❌ Invalid decimal number!");
                 Console.ResetColor();
                 return;
             }
-            result = calc.Divide(num1, num2);
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(input2) || !int.TryParse(input2, out num2Int))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("❌ Invalid number!");
+                Console.ResetColor();
+                return;
+            }
         }
 
-        //* Displaying the result
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"✅ Result: {result}");
-        Console.ResetColor();
+        //* Perform calculation based on useDecimals flag
+        if (useDecimals)
+        {
+            double result = 0;
+            if (operation == '+')
+            {
+                result = calc.AddDouble(num1Double, num2Double);
+            }
+            else if (operation == '-')
+            {
+                result = calc.SubtractDouble(num1Double, num2Double);
+            }
+            else if (operation == '*')
+            {
+                result = calc.MultiplyDouble(num1Double, num2Double);
+            }
+            else if (operation == '/')
+            {
+                //* Handling of division by zero
+                if (num2Double == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("❌ Error: cannot divide by zero!");
+                    Console.ResetColor();
+                    return;
+                }
+                result = calc.DivideDouble(num1Double, num2Double);
+            }
+
+            //* Displaying the result
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"✅ Result: {result}");
+            Console.ResetColor();
+        }
+        else
+        {
+            int result = 0;
+            if (operation == '+')
+            {
+                result = calc.Add(num1Int, num2Int);
+            }
+            else if (operation == '-')
+            {
+                result = calc.Subtract(num1Int, num2Int);
+            }
+            else if (operation == '*')
+            {
+                result = calc.Multiply(num1Int, num2Int);
+            }
+            else if (operation == '/')
+            {
+                //* Handling of division by zero
+                if (num2Int == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("❌ Error: cannot divide by zero!");
+                    Console.ResetColor();
+                    return;
+                }
+                result = calc.Divide(num1Int, num2Int);
+            }
+
+            //* Displaying the result
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"✅ Result: {result}");
+            Console.ResetColor();
+        }
     }
 }
