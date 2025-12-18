@@ -129,17 +129,16 @@ class Program
                 }
                 else if (operation == '/')
                 {
-                    //* Handling of division by zero
-                    if (num2Double == 0)
+                    double tempResult;
+                    if (!calc.TryDivideDouble(num1Double, num2Double, out tempResult))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("❌ Error: cannot divide by zero!");
                         Console.ResetColor();
                         continue;
                     }
-                    result = calc.DivideDouble(num1Double, num2Double);
 
-                    result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
+                    result = Math.Round(tempResult, 2, MidpointRounding.AwayFromZero);
                 }
 
                 //* Displaying the result
@@ -173,15 +172,16 @@ class Program
                 }
                 else if (operation == '/')
                 {
-                    //* Handling of division by zero
-                    if (num2Int == 0)
+                    int tempResult;
+                    if (!calc.TryDivide(num1Int, num2Int, out tempResult))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("❌ Error: cannot divide by zero!");
                         Console.ResetColor();
                         continue;
                     }
-                    result = calc.Divide(num1Int, num2Int);
+
+                    result = tempResult;
                 }
 
                 //* Displaying the result
