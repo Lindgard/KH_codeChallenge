@@ -36,44 +36,24 @@ public class Calculator
     }
 
     /// <summary>
-    /// Throws if the divisor is zero(int).
-    /// </summary>
-    /// <param name="b"></param>
-    /// <exception cref="DivideByZeroException"></exception>
-    private static void EnsureNonZeroDivisor(int b)
-    {
-        if (b == 0)
-        {
-            throw new DivideByZeroException("Divisor 'b' must not be zero.");
-        }
-    }
-
-    /// <summary>
-    /// Throws if the divisor is zero(double).
-    /// </summary>
-    /// <param name="b"></param>
-    /// <exception cref="DivideByZeroException"></exception>
-    private static void EnsureNonZeroDivisor(double b)
-    {
-        if (b == 0)
-        {
-            throw new DivideByZeroException("Divisor 'b' must not be zero.");
-        }
-    }
-
-    /// <summary>
-    /// Divides one integer by another and returns the quotient.
+    /// Tries to divide one integer by another.
     /// </summary>
     /// <param name="a">The dividend.</param>
     /// <param name="b">The divisor.</param>
-    /// <returns>The result of dividing <paramref name="a"/> by <paramref name="b"/>.</returns>
-    /// <exception cref="DivideByZeroException">
-    /// Thrown when <paramref name="b"/> is zero.
-    /// </exception>
-    public int Divide(int a, int b)
+    /// <param name="result">The quotient if the division succeeds; otherwise 0.</param>
+    /// <returns>
+    /// <c>true</c> if the division succeeded; <c>false</c> if <paramref name="b"/> was zero.
+    /// </returns>
+    public bool TryDivide(int a, int b, out int result)
     {
-        EnsureNonZeroDivisor(b);
-        return a / b;
+        if (b == 0)
+        {
+            result = 0;
+            return false;
+        }
+        
+        result = a / b;
+        return true;
     }
 
     //* Decimal-versions of methods
@@ -112,17 +92,23 @@ public class Calculator
     }
 
     /// <summary>
-    /// Divides one double by another and returns the quotient.
+    /// Tries to divide one double by another.
     /// </summary>
     /// <param name="a">The dividend.</param>
     /// <param name="b">The divisor.</param>
-    /// <returns>The result of dividing <paramref name="a"/> by <paramref name="b"/>.</returns>
-    /// <exception cref="DivideByZeroException">
-    /// Thrown when <paramref name="b"/> is zero.
-    /// </exception>
-    public double DivideDouble(double a, double b)
+    /// <param name="result">The quotient if the division succeeds; otherwise 0.0;</param>
+    /// <returns>
+    /// <c>true</c> if the division succeeded; <c>false</c> if <paramref name="b"/> was zero.
+    /// </returns>
+    public bool TryDivideDouble (double a, double b, out double result)
     {
-        EnsureNonZeroDivisor(b);
-        return a / b;
+        if (b == 0)
+        {
+            result = 0.0;
+            return false;
+        }
+
+        result = a / b;
+        return true;
     }
 }
