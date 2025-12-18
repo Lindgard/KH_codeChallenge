@@ -111,26 +111,26 @@ class Program
                 double result = 0;
                 if (operation == '+')
                 {
-                    result = calc.AddDouble(num1Double, num2Double);
+                    result = calc.Add(num1Double, num2Double);
 
                     result = Math.Round(result, 2, MidpointRounding.AwayFromZero); //* Adding a limit to the decimals of the double that result should be.
                 }
                 else if (operation == '-')
                 {
-                    result = calc.SubtractDouble(num1Double, num2Double);
+                    result = calc.Subtract(num1Double, num2Double);
 
                     result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
                 }
                 else if (operation == '*')
                 {
-                    result = calc.MultiplyDouble(num1Double, num2Double);
+                    result = calc.Multiply(num1Double, num2Double);
 
                     result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
                 }
                 else if (operation == '/')
                 {
                     double tempResult;
-                    if (!calc.TryDivideDouble(num1Double, num2Double, out tempResult))
+                    if (!calc.TryDivide(num1Double, num2Double, out tempResult))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("❌ Error: cannot divide by zero!");

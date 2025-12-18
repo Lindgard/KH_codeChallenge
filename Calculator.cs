@@ -64,7 +64,7 @@ public class Calculator
     /// <param name="a">First addend.</param>
     /// <param name="b">Second addend.</param>
     /// <returns>The sum of <paramref name="a"/> and <paramref name="b"/>.</returns>
-    public double AddDouble(double a, double b)
+    public double Add(double a, double b)
     {
         return a + b;
     }
@@ -75,7 +75,7 @@ public class Calculator
     /// <param name="a">The value to subtract from.</param>
     /// <param name="b">The value to subtract</param>
     /// <returns>The result of <paramref name="a"/> minus <paramref name="b"/>.</returns>
-    public double SubtractDouble(double a, double b)
+    public double Subtract(double a, double b)
     {
         return a - b;
     }
@@ -86,7 +86,7 @@ public class Calculator
     /// <param name="a">The first factor.</param>
     /// <param name="b">The second factor.</param>
     /// <returns>The product of <paramref name="a"> and <paramref name="b"/>.</returns>
-    public double MultiplyDouble(double a, double b)
+    public double Multiply(double a, double b)
     {
         return a * b;
     }
@@ -100,7 +100,7 @@ public class Calculator
     /// <returns>
     /// <c>true</c> if the division succeeded; <c>false</c> if <paramref name="b"/> was zero.
     /// </returns>
-    public bool TryDivideDouble (double a, double b, out double result)
+    public bool TryDivide (double a, double b, out double result)
     {
         if (b == 0)
         {
