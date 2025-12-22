@@ -8,7 +8,7 @@ class Program
         Calculator calc = new Calculator();
 
         //* Array of recent calculation history
-        string[] recentHistory = new string[5];
+        string[] recentHistory = new string[3];
         int historyIndex = 0;
 
         //* List for all results
@@ -22,7 +22,7 @@ class Program
         while (true)
         {
             //* Ask if user wants decimal calculations (bool)
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Use decimal numbers? (y/n): ");
             Console.ResetColor();
             string? choiceInput = Console.ReadLine();
@@ -60,7 +60,7 @@ class Program
             }
 
             //* Get operation (char)
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write("Enter operation (+, -, *, /) \n(press Enter when done): ");
             Console.ResetColor();
             string? operationInput = Console.ReadLine();
@@ -191,7 +191,7 @@ class Program
 
                 //* Storing in array
                 string calculationEntry = $"{num1Int} {operation} {num2Int} = {result}";
-                recentHistory[historyIndex % 5] = calculationEntry;
+                recentHistory[historyIndex % 3] = calculationEntry;
                 historyIndex++;
 
                 //* Storing in lists
@@ -210,7 +210,7 @@ class Program
 
         //* Displaying the collections
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine("\n--- Recent History (Array - last 5) ---");
+        Console.WriteLine("\n--- Recent History (Array - last 3) ---");
         Console.ResetColor();
         foreach (string historyItem in recentHistory)
         {
